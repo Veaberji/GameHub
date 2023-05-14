@@ -1,6 +1,6 @@
 # Game Hub
 
-This project is a Game Hub app. React 18 and vite 4 was used.
+This project is a UI copy of the `https://rawg.io/` project. React 18 and vite 4 was used.
 
 ## Run Project
 

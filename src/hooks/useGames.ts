@@ -2,10 +2,16 @@ import { useState, useEffect } from 'react';
 import { CanceledError } from '../services/api-client';
 import gamesService from '../services/games-service';
 
+export interface Platform {
+  id: number;
+  name: string;
+  slug: string;
+}
 export interface Game {
   id: number;
   name: string;
   background_image: string;
+  parent_platforms: { platform: Platform }[];
 }
 
 interface FetchGamesResponse {

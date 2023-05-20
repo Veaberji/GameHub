@@ -1,37 +1,29 @@
 import { useState, useEffect } from 'react';
 import { CanceledError } from '../services/api-client';
-import gamesService from '../services/games-service';
+import genresService from '../services/genres-service';
 
-export interface Platform {
+export interface Genre {
   id: number;
   name: string;
   slug: string;
 }
 
-export interface Game {
-  id: number;
-  name: string;
-  background_image: string;
-  parent_platforms: { platform: Platform }[];
-  metacritic: number;
-}
-
-interface FetchGamesResponse {
+interface FetchGenresResponse {
   count: number;
-  results: Game[];
+  results: Genre[];
 }
 
-const useGames = () => {
-  const [games, setGames] = useState<Game[]>([]);
+const useGenres = () => {
+  const [genres, setGenres] = useState<Genre[]>([]);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
 
-    const { request, cancel } = gamesService.get<FetchGamesResponse>();
+    const { request, cancel } = genresService.get<FetchGenresResponse>();
     request
-      .then((res) => setGames(res.data.results))
+      .then((res) => setGenres(res.data.results))
       .catch((err) => {
         if (err instanceof CanceledError) {
           return;
@@ -43,7 +35,7 @@ const useGames = () => {
     return () => cancel();
   }, []);
 
-  return { games, error, isLoading };
+  return { genres, error, isLoading };
 };
 
-export default useGames;
+export default useGenres;

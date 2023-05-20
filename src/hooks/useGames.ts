@@ -23,8 +23,11 @@ interface FetchGamesResponse {
 const useGames = () => {
   const [games, setGames] = useState<Game[]>([]);
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
+
     const { request, cancel } = gamesService.get<FetchGamesResponse>();
     request
       .then((res) => setGames(res.data.results))
@@ -33,12 +36,13 @@ const useGames = () => {
           return;
         }
         setError(err.message);
-      });
+      })
+      .finally(() => setIsLoading(false));
 
     return () => cancel();
   }, []);
 
-  return { games, error };
+  return { games, error, isLoading };
 };
 
 export default useGames;

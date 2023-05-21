@@ -16,10 +16,17 @@ export interface Game {
 }
 
 const useGames = (gameQuery: GameQuery) => {
+  let sort: string | null = null;
+  if (gameQuery.sort) {
+    sort = gameQuery.sort.reversed ? `-${gameQuery.sort.sortBy.toString()}` : gameQuery.sort.sortBy.toString();
+  }
+
   const { data, error, isLoading } = {
-    ...useData<Game>('games', { params: { genres: gameQuery.genre?.id, platforms: gameQuery.platform?.id } }, [
-      gameQuery,
-    ]),
+    ...useData<Game>(
+      'games',
+      { params: { genres: gameQuery.genre?.id, platforms: gameQuery.platform?.id, ordering: sort } },
+      [gameQuery]
+    ),
   };
 
   return { games: data, error, isLoading };

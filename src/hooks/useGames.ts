@@ -24,7 +24,14 @@ const useGames = (gameQuery: GameQuery) => {
   const { data, error, isLoading } = {
     ...useData<Game>(
       'games',
-      { params: { genres: gameQuery.genre?.id, platforms: gameQuery.platform?.id, ordering: sort } },
+      {
+        params: {
+          genres: gameQuery.genre?.id,
+          platforms: gameQuery.platform?.id,
+          ordering: sort,
+          search: gameQuery.searchText,
+        },
+      },
       [gameQuery]
     ),
   };

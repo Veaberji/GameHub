@@ -1,6 +1,5 @@
-# Game Hub
+[# Game Hub](https://game-hub-silk-two.vercel.app/)
 
-`https://game-hub-silk-two.vercel.app/`
 This project is a UI copy of the `https://rawg.io/` project. React 18 and vite 4 was used.
 
 ## Run Project

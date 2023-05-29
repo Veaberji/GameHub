@@ -1,10 +1,19 @@
 import { AxiosRequestConfig } from 'axios';
 import apiClient from './api-client';
 
-class HttpService {
+export interface FetchResponse<T> {
+  count: number;
+  results: T[];
+}
+
+class HttpService<T> {
   constructor(private readonly endpoint: string) {}
 
-  get<T>(config?: AxiosRequestConfig) {
+  getAll(config?: AxiosRequestConfig) {
+    return apiClient.get<FetchResponse<T>>(this.endpoint, { ...config }).then((res) => res.data);
+  }
+
+  get(config?: AxiosRequestConfig) {
     const controller = new AbortController();
     const request = apiClient.get<T>(this.endpoint, { signal: controller.signal, ...config });
 
@@ -12,6 +21,4 @@ class HttpService {
   }
 }
 
-const create = (endpoint: string) => new HttpService(endpoint);
-
-export default create;
+export default HttpService;

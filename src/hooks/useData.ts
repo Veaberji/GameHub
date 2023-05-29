@@ -1,12 +1,7 @@
 import { useState, useEffect, DependencyList } from 'react';
 import { CanceledError } from '../services/api-client';
-import create from '../services/http-service';
 import { AxiosRequestConfig } from 'axios';
-
-interface FetchResponse<T> {
-  count: number;
-  results: T[];
-}
+import HttpService, { FetchResponse } from '../services/http-service';
 
 const useData = <T>(endpoint: string, config?: AxiosRequestConfig, deps: DependencyList = []) => {
   const [data, setData] = useState<T[]>([]);
@@ -16,7 +11,7 @@ const useData = <T>(endpoint: string, config?: AxiosRequestConfig, deps: Depende
   useEffect(() => {
     setIsLoading(true);
 
-    const { request, cancel } = create(endpoint).get<FetchResponse<T>>(config);
+    const { request, cancel } = new HttpService<FetchResponse<T>>(endpoint).get(config);
 
     request
       .then((res) => setData(res.data.results))

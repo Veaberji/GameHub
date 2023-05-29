@@ -1,14 +1,15 @@
-import useData from './useData';
-
-export interface Genre {
-  id: number;
-  name: string;
-  slug: string;
-  image_background: string;
-}
+import { useQuery } from '@tanstack/react-query';
+import { CACHE_KEY_GENRES } from '../services/constants';
+import useGenresHttp from './useGenresHttp';
 
 const useGenres = () => {
-  const { data, error, isLoading } = { ...useData<Genre>('genres') };
+  const { getGenres } = useGenresHttp();
+
+  const { data, error, isLoading } = useQuery({
+    queryKey: [CACHE_KEY_GENRES],
+    queryFn: getGenres,
+    staleTime: 24 * 60 * 60 * 1000,
+  });
 
   return { genres: data, error, isLoading };
 };

@@ -1,15 +1,8 @@
+import { useQuery } from '@tanstack/react-query';
 import { GameQuery } from '../App';
-import useData from './useData';
-import { Platform } from './usePlatformsHttp';
-
-export interface Game {
-  id: number;
-  name: string;
-  background_image: string;
-  parent_platforms: { platform: Platform }[];
-  metacritic: number;
-  rating_top: number;
-}
+import { CACHE_KEY_GAMES } from '../services/constants';
+import { FetchResponse } from '../services/http-service';
+import useGamesHttp, { Game } from './useGamesHttp';
 
 const useGames = (gameQuery: GameQuery) => {
   let sort: string | null = null;
@@ -17,20 +10,21 @@ const useGames = (gameQuery: GameQuery) => {
     sort = gameQuery.sort.reversed ? `-${gameQuery.sort.sortBy.toString()}` : gameQuery.sort.sortBy.toString();
   }
 
-  const { data, error, isLoading } = {
-    ...useData<Game>(
-      'games',
-      {
+  const { getGames } = useGamesHttp();
+
+  const { data, error, isLoading } = useQuery<FetchResponse<Game>, Error>({
+    queryKey: [CACHE_KEY_GAMES, gameQuery],
+    queryFn: () =>
+      getGames({
         params: {
           genres: gameQuery.genre?.id,
-          platforms: gameQuery.platform?.id,
+          parent_platforms: gameQuery.platform?.id,
           ordering: sort,
           search: gameQuery.searchText,
         },
-      },
-      [gameQuery]
-    ),
-  };
+      }),
+    staleTime: 60 * 60 * 1000,
+  });
 
   return { games: data, error, isLoading };
 };

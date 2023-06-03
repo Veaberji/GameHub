@@ -12,13 +12,6 @@ class HttpService<T> {
   getAll(config?: AxiosRequestConfig) {
     return apiClient.get<FetchResponse<T>>(this.endpoint, { ...config }).then((res) => res.data);
   }
-
-  get(config?: AxiosRequestConfig) {
-    const controller = new AbortController();
-    const request = apiClient.get<T>(this.endpoint, { signal: controller.signal, ...config });
-
-    return { request, cancel: () => controller.abort() };
-  }
 }
 
 export default HttpService;

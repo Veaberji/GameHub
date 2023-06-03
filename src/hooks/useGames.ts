@@ -12,10 +12,7 @@ const useGames = (gameQuery: GameQuery) => {
 
   const { getGames } = useGamesHttp();
 
-  const { data, error, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } = useInfiniteQuery<
-    FetchResponse<Game>,
-    Error
-  >({
+  const { data, error, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery<FetchResponse<Game>, Error>({
     queryKey: [CACHE_KEY_GAMES, gameQuery],
     queryFn: ({ pageParam = 1 }) =>
       getGames({
@@ -31,7 +28,7 @@ const useGames = (gameQuery: GameQuery) => {
     staleTime: 60 * 60 * 1000,
   });
 
-  return { games: data, error, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage };
+  return { games: data, error, isLoading, fetchNextPage, hasNextPage };
 };
 
 export default useGames;

@@ -1,8 +1,15 @@
-import useData from './useData';
-import { Platform } from './useGames';
+import { useQuery } from '@tanstack/react-query';
+import { CACHE_KEY_PLATFORMS } from '../services/constants';
+import usePlatformsHttp from './usePlatformsHttp';
 
 const usePlatforms = () => {
-  const { data, error, isLoading } = { ...useData<Platform>('platforms/lists/parents') };
+  const { getPlatforms } = usePlatformsHttp();
+
+  const { data, error, isLoading } = useQuery({
+    queryKey: [CACHE_KEY_PLATFORMS],
+    queryFn: getPlatforms,
+    staleTime: 24 * 60 * 60 * 1000,
+  });
 
   return { platforms: data, error, isLoading };
 };

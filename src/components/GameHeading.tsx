@@ -8,11 +8,11 @@ interface Props {
 }
 
 const GameHeading = ({ gameQuery }: Props) => {
-  const { genres } = useGenres();
-  const { platforms } = usePlatforms();
+  const { findGenre } = useGenres();
+  const { findPlatform } = usePlatforms();
 
-  const platform = platforms?.results.find((p) => p.id === gameQuery.platformId)?.name || '';
-  const genre = genres?.results.find((g) => g.id === gameQuery.genreId)?.name || '';
+  const platform = findPlatform(gameQuery.platformId)?.name || '';
+  const genre = findGenre(gameQuery.genreId)?.name || '';
   const heading = `${platform} ${genre} Games`;
 
   return (

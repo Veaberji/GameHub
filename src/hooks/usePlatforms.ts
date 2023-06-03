@@ -11,7 +11,9 @@ const usePlatforms = () => {
     staleTime: 24 * 60 * 60 * 1000,
   });
 
-  return { platforms: data, error, isLoading };
+  const findPlatform = (id?: number) => data?.results.find((p) => p.id === id);
+
+  return { platforms: data, error, isLoading, findPlatform };
 };
 
 export default usePlatforms;

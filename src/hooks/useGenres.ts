@@ -11,7 +11,9 @@ const useGenres = () => {
     staleTime: 24 * 60 * 60 * 1000,
   });
 
-  return { genres: data, error, isLoading };
+  const findGenre = (id?: number) => data?.results.find((p) => p.id === id);
+
+  return { genres: data, error, isLoading, findGenre };
 };
 
 export default useGenres;

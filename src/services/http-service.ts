@@ -1,10 +1,10 @@
 import { AxiosRequestConfig } from 'axios';
 import apiClient from './api-client';
 
-export interface FetchResponse<T> {
+export interface FetchResponse<Entity> {
   count: number;
   next: string | null;
-  results: T[];
+  results: Entity[];
 }
 
 class HttpService<T> {

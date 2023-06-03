@@ -9,7 +9,7 @@ interface Props {
 }
 
 const PlatformSelector = ({ selectedPlatformId, onSelectPlatform }: Props) => {
-  const { platforms, error, isLoading } = usePlatforms();
+  const { platforms, error, isLoading, findPlatform } = usePlatforms();
 
   if (error) return null;
   if (isLoading) return <Spinner />;
@@ -17,7 +17,7 @@ const PlatformSelector = ({ selectedPlatformId, onSelectPlatform }: Props) => {
   return (
     <Menu>
       <MenuButton as={Button} rightIcon={<BsChevronDown />}>
-        {platforms?.results.find((p) => p.id === selectedPlatformId)?.name || 'Platforms'}
+        {findPlatform(selectedPlatformId)?.name || 'Platforms'}
       </MenuButton>
       <MenuList>
         {platforms?.results.map((platform) => (

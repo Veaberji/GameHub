@@ -10,7 +10,7 @@ class HttpService<T> {
   constructor(private readonly endpoint: string) {}
 
   getAll(config?: AxiosRequestConfig) {
-    return apiClient.get<FetchResponse<T>>(this.endpoint, { ...config }).then((res) => res.data);
+    return apiClient.get<FetchResponse<T>>(this.endpoint, config).then((res) => res.data);
   }
 }
 

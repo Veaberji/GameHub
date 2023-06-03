@@ -1,4 +1,4 @@
-import { CACHE_KEY_PLATFORMS } from '../services/constants';
+import { PLATFORMS_API } from '../services/constants';
 import HttpService from '../services/http-service';
 
 export interface Platform {
@@ -8,7 +8,7 @@ export interface Platform {
 }
 
 const usePlatformsHttp = () => {
-  const client = new HttpService<Platform>(CACHE_KEY_PLATFORMS);
+  const client = new HttpService<Platform>(PLATFORMS_API);
 
   const getPlatforms = () => client.getAll();
 

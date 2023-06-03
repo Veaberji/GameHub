@@ -17,8 +17,8 @@ const useGames = (gameQuery: GameQuery) => {
     queryFn: ({ pageParam = 1 }) =>
       getGames({
         params: {
-          genres: gameQuery.genre?.id,
-          parent_platforms: gameQuery.platform?.id,
+          genres: gameQuery.genreId,
+          parent_platforms: gameQuery.platformId,
           ordering: sort,
           search: gameQuery.searchText,
           page: pageParam,

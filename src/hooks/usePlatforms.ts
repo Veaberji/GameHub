@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import ms from 'ms';
 import { CACHE_KEY_PLATFORMS } from '../services/constants';
 import usePlatformsHttp from './usePlatformsHttp';
 
@@ -8,7 +9,7 @@ const usePlatforms = () => {
   const { data, error, isLoading } = useQuery({
     queryKey: [CACHE_KEY_PLATFORMS],
     queryFn: getPlatforms,
-    staleTime: 24 * 60 * 60 * 1000,
+    staleTime: ms('1d'),
   });
 
   const findPlatform = (id?: number) => data?.results.find((p) => p.id === id);

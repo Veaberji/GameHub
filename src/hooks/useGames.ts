@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { GameQuery } from '../App';
 import { CACHE_KEY_GAMES } from '../services/constants';
 import { FetchResponse } from '../services/http-service';
@@ -12,21 +12,26 @@ const useGames = (gameQuery: GameQuery) => {
 
   const { getGames } = useGamesHttp();
 
-  const { data, error, isLoading } = useQuery<FetchResponse<Game>, Error>({
+  const { data, error, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } = useInfiniteQuery<
+    FetchResponse<Game>,
+    Error
+  >({
     queryKey: [CACHE_KEY_GAMES, gameQuery],
-    queryFn: () =>
+    queryFn: ({ pageParam = 1 }) =>
       getGames({
         params: {
           genres: gameQuery.genre?.id,
           parent_platforms: gameQuery.platform?.id,
           ordering: sort,
           search: gameQuery.searchText,
+          page: pageParam,
         },
       }),
+    getNextPageParam: (lastPage, allPages) => (lastPage.next ? allPages.length + 1 : undefined),
     staleTime: 60 * 60 * 1000,
   });
 
-  return { games: data, error, isLoading };
+  return { games: data, error, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage };
 };
 
 export default useGames;

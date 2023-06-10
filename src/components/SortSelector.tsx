@@ -1,6 +1,7 @@
-import { Menu, MenuButton, Button, MenuList, MenuItem, Text, Icon, HStack } from '@chakra-ui/react';
+import { Button, HStack, Icon, Menu, MenuButton, MenuItem, MenuList, Text } from '@chakra-ui/react';
 import { BsChevronDown } from 'react-icons/bs';
 import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti';
+import useGameQueryStore from '../store';
 
 export enum SortBy {
   byRelevance = '',
@@ -18,17 +19,12 @@ export interface Sort {
   sortBy: SortBy;
 }
 
-interface Props {
-  selectedSort: Sort;
-  onSelectSort: (sort: Sort) => void;
-}
-
 interface SortOrder {
   value: SortBy;
   label: string;
 }
 
-const SortSelector = ({ selectedSort, onSelectSort }: Props) => {
+const SortSelector = () => {
   const sortOrders: SortOrder[] = [
     { value: SortBy.byRelevance, label: 'Relevance' },
     { value: SortBy.byName, label: 'Name' },
@@ -40,6 +36,9 @@ const SortSelector = ({ selectedSort, onSelectSort }: Props) => {
     { value: SortBy.byMetacritic, label: 'Metacritic' },
   ];
 
+  const selectedSort = useGameQueryStore((s) => s.gameQuery.sort);
+  const setSelectedSort = useGameQueryStore((s) => s.setSort);
+
   return (
     <Menu>
       <MenuButton as={Button} rightIcon={<BsChevronDown />}>
@@ -49,7 +48,7 @@ const SortSelector = ({ selectedSort, onSelectSort }: Props) => {
         {sortOrders.map((sortOrder) => (
           <MenuItem
             key={sortOrder.value}
-            onClick={() => onSelectSort({ ...selectedSort, sortBy: sortOrder.value })}
+            onClick={() => setSelectedSort({ reversed: selectedSort.reversed, sortBy: sortOrder.value })}
             justifyContent="space-between"
             fontWeight={sortOrder.value === selectedSort.sortBy ? 'bold' : 'normal'}
           >
@@ -60,7 +59,7 @@ const SortSelector = ({ selectedSort, onSelectSort }: Props) => {
                 color={sortOrder.value === selectedSort.sortBy && !selectedSort.reversed ? 'gray.200' : 'gray.500'}
                 onClick={(event) => {
                   event.stopPropagation();
-                  onSelectSort({ sortBy: sortOrder.value, reversed: false });
+                  setSelectedSort({ sortBy: sortOrder.value, reversed: false });
                 }}
               />
               <Icon
@@ -68,7 +67,7 @@ const SortSelector = ({ selectedSort, onSelectSort }: Props) => {
                 color={sortOrder.value === selectedSort.sortBy && selectedSort.reversed ? 'gray.200' : 'gray.500'}
                 onClick={(event) => {
                   event.stopPropagation();
-                  onSelectSort({ sortBy: sortOrder.value, reversed: true });
+                  setSelectedSort({ sortBy: sortOrder.value, reversed: true });
                 }}
               />
             </HStack>

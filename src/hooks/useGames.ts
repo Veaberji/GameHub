@@ -1,11 +1,13 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import ms from 'ms';
-import { GameQuery } from '../App';
 import { CACHE_KEY_GAMES } from '../services/constants';
 import { FetchResponse } from '../services/http-service';
+import useGameQueryStore from '../store';
 import useGamesHttp, { Game } from './useGamesHttp';
 
-const useGames = (gameQuery: GameQuery) => {
+const useGames = () => {
+  const gameQuery = useGameQueryStore((s) => s.gameQuery);
+
   let sort: string | null = null;
   if (gameQuery.sort) {
     sort = gameQuery.sort.reversed ? `-${gameQuery.sort.sortBy.toString()}` : gameQuery.sort.sortBy.toString();

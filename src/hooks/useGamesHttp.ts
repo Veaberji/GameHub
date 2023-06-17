@@ -5,7 +5,9 @@ import { Platform } from './usePlatformsHttp';
 
 export interface Game {
   id: number;
+  slug: string;
   name: string;
+  description_raw: string;
   background_image: string;
   parent_platforms: { platform: Platform }[];
   metacritic: number;
@@ -17,7 +19,9 @@ const useGamesHttp = () => {
 
   const getGames = (config?: AxiosRequestConfig) => client.getAll(config);
 
-  return { getGames };
+  const getGame = (id: string) => client.get(id);
+
+  return { getGames, getGame };
 };
 
 export default useGamesHttp;

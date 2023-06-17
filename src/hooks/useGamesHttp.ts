@@ -1,18 +1,7 @@
 import { AxiosRequestConfig } from 'axios';
-import { CACHE_KEY_GAMES } from '../services/constants';
+import { CACHE_KEY_GAMES } from '../constants/cacheKeys';
 import HttpService from '../services/http-service';
-import { Platform } from './usePlatformsHttp';
-
-export interface Game {
-  id: number;
-  slug: string;
-  name: string;
-  description_raw: string;
-  background_image: string;
-  parent_platforms: { platform: Platform }[];
-  metacritic: number;
-  rating_top: number;
-}
+import { Game } from '../entities/Game';
 
 const useGamesHttp = () => {
   const client = new HttpService<Game>(CACHE_KEY_GAMES);

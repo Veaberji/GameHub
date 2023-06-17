@@ -1,5 +1,6 @@
 import { create } from 'zustand';
-import { Sort, SortBy } from './components/SortSelector';
+import { Sort } from './entities/Sort';
+import { SortBy } from './constants/SortBy';
 import { mountStoreDevtool } from 'simple-zustand-devtools';
 
 interface GameQuery {

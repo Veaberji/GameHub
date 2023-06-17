@@ -1,12 +1,6 @@
-import { CACHE_KEY_GENRES } from '../services/constants';
+import { CACHE_KEY_GENRES } from '../constants/cacheKeys';
 import HttpService from '../services/http-service';
-
-export interface Genre {
-  id: number;
-  name: string;
-  slug: string;
-  image_background: string;
-}
+import { Genre } from '../entities/Genre';
 
 const useGenresHttp = () => {
   const client = new HttpService<Genre>(CACHE_KEY_GENRES);

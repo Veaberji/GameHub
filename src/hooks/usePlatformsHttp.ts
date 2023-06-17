@@ -1,11 +1,6 @@
-import { PLATFORMS_API } from '../services/constants';
+import { PLATFORMS_API } from '../constants/cacheKeys';
 import HttpService from '../services/http-service';
-
-export interface Platform {
-  id: number;
-  name: string;
-  slug: string;
-}
+import { Platform } from '../entities/Platform';
 
 const usePlatformsHttp = () => {
   const client = new HttpService<Platform>(PLATFORMS_API);

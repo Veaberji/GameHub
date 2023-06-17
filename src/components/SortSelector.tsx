@@ -2,22 +2,7 @@ import { Button, HStack, Icon, Menu, MenuButton, MenuItem, MenuList, Text } from
 import { BsChevronDown } from 'react-icons/bs';
 import { TiArrowSortedDown, TiArrowSortedUp } from 'react-icons/ti';
 import useGameQueryStore from '../store';
-
-export enum SortBy {
-  byRelevance = '',
-  byName = 'name',
-  byRelease = 'released',
-  byAddedDate = 'added',
-  byCreatedDate = 'created',
-  byUpdatedDate = 'updated',
-  byRating = 'rating',
-  byMetacritic = 'metacritic',
-}
-
-export interface Sort {
-  reversed: boolean;
-  sortBy: SortBy;
-}
+import { SortBy } from '../constants/SortBy';
 
 interface SortOrder {
   value: SortBy;

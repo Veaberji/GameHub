@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { CACHE_KEY_GENRES } from '../services/constants';
+import { CACHE_KEY_GENRES } from '../constants/cacheKeys';
 import useGenresHttp from './useGenresHttp';
 import ms from 'ms';
 

@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import ms from 'ms';
-import { CACHE_KEY_PLATFORMS } from '../services/constants';
+import { CACHE_KEY_PLATFORMS } from '../constants/cacheKeys';
 import usePlatformsHttp from './usePlatformsHttp';
 
 const usePlatforms = () => {

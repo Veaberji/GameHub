@@ -4,7 +4,7 @@ import { CACHE_KEY_GAMES } from '../constants/cacheKeys';
 import { FetchResponse } from '../services/http-service';
 import useGameQueryStore from '../store';
 import useGamesHttp from './useGamesHttp';
-import { Game } from '../entities/Game';
+import Game from '../entities/Game';
 
 const useGames = () => {
   const gameQuery = useGameQueryStore((s) => s.gameQuery);

@@ -1,6 +1,6 @@
 import { SortBy } from '../constants/SortBy';
 
-export interface Sort {
+export default interface Sort {
   reversed: boolean;
   sortBy: SortBy;
 }

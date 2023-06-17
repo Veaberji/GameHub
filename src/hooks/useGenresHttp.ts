@@ -1,9 +1,8 @@
-import { CACHE_KEY_GENRES } from '../constants/cacheKeys';
 import HttpService from '../services/http-service';
-import { Genre } from '../entities/Genre';
+import Genre from '../entities/Genre';
 
 const useGenresHttp = () => {
-  const client = new HttpService<Genre>(CACHE_KEY_GENRES);
+  const client = new HttpService<Genre>('genres');
 
   const getGenres = () => client.getAll();
 

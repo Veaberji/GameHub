@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import ms from 'ms';
 import { CACHE_KEY_SCREENSHOTS } from '../constants/cacheKeys';
-import { Screenshot } from '../entities/Screenshots';
+import Screenshot from '../entities/Screenshots';
 import { FetchResponse } from '../services/http-service';
 import useScreenshotsHttp from './useScreenshotsHttp';
 

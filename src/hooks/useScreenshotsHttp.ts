@@ -1,10 +1,8 @@
 import HttpService from '../services/http-service';
-import { Screenshot } from '../entities/Screenshots';
-import { CACHE_KEY_GAMES } from '../constants/cacheKeys';
+import Screenshot from '../entities/Screenshots';
 
 const useScreenshotsHttp = () => {
-  const getScreenshots = (gameId: number) =>
-    new HttpService<Screenshot>(`${CACHE_KEY_GAMES}/${gameId}/screenshots`).getAll();
+  const getScreenshots = (gameId: number) => new HttpService<Screenshot>(`games/${gameId}/screenshots`).getAll();
 
   return { getScreenshots };
 };

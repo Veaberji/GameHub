@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import ms from 'ms';
 import { CACHE_KEY_TRAILERS } from '../constants/cacheKeys';
-import { Trailer } from '../entities/Trailer';
+import Trailer from '../entities/Trailer';
 import { FetchResponse } from '../services/http-service';
 import useTrailersHttp from './useTrailersHttp';
 

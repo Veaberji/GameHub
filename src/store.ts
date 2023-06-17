@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { Sort } from './entities/Sort';
+import Sort from './entities/Sort';
 import { SortBy } from './constants/SortBy';
 import { mountStoreDevtool } from 'simple-zustand-devtools';
 
